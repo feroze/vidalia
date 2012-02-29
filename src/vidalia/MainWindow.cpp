@@ -38,6 +38,8 @@
 #include <QMenuBar>
 #include <QTimer>
 #include <QTextStream>
+#include <QPainter>
+#include <QBitmap>
 
 #ifdef Q_WS_MAC
 #include <Carbon/Carbon.h>
@@ -148,6 +150,8 @@ MainWindow::MainWindow()
   connect(_torControl, SIGNAL(authenticated()), this, SLOT(authenticated()));
   connect(_torControl, SIGNAL(authenticationFailed(QString)),
           this, SLOT(authenticationFailed(QString)));
+  connect(_torControl, SIGNAL(streamStatusChanged(Stream)),
+  		  this, SLOT(addStreamToTrayIcon(Stream)));
 
   _torControl->setEvent(TorEvents::GeneralStatus);
   connect(_torControl, SIGNAL(dangerousTorVersion(tc::TorVersionStatus,
@@ -219,6 +223,8 @@ MainWindow::MainWindow()
     show(); 
   /* Optimistically hope that the tray icon gets added. */
   _trayIcon.show();
+
+  _streams = 0;
 
 #if defined(Q_WS_MAC)
   /* Display OSX dock icon if icon preference is not set to "Tray Only" */
@@ -957,6 +963,7 @@ MainWindow::updateTorStatus(TorStatus status)
   /* Update the tray icon */
   if (!trayIconFile.isEmpty()) {
     setTrayIcon(trayIconFile);
+    _trayIconFile = trayIconFile;
   }
   /* Update the status banner on the control panel */
   if (!statusIconFile.isEmpty())
@@ -966,6 +973,47 @@ MainWindow::updateTorStatus(TorStatus status)
     ui.lblTorStatus->setText(statusText);
   }
   return prevStatus;
+}
+
+void
+MainWindow::addStreamToTrayIcon(const Stream &stream)
+{
+    Stream::Status status = stream.status();
+    switch (status) {
+      case Stream::Closed:
+      case Stream::Failed:
+        _streams--;
+        if (_streams <= 0) {
+          _streams = 0;
+          setTrayIcon(_trayIconFile);
+          return;
+        }
+        break;
+      case Stream::New:
+        _streams++;
+        if (_streams > 99)
+          return;
+        break;
+      default:
+        return;
+    }
+
+
+	int h = 22;
+	int w = 22;
+	QString count = QString::number(_streams);
+
+	QPixmap  mask(_trayIconFile);
+    QPainter painter;
+    painter.begin(&mask);
+    //mask.fill(Qt::transparent);
+    painter.setPen(Qt::blue);
+    painter.drawText(5,15,QString::number(_streams));
+	
+	painter.end();
+	
+    _trayIcon.setIcon(mask);
+    _trayIcon.show();
 }
 
 /** Called when the "show on startup" checkbox is toggled. */
