@@ -999,16 +999,13 @@ MainWindow::addStreamToTrayIcon(const Stream &stream)
     }
 
 
-	int h = 22;
-	int w = 22;
 	QString count = QString::number(_streams);
 
 	QPixmap  mask(_trayIconFile);
     QPainter painter;
     painter.begin(&mask);
-    //mask.fill(Qt::transparent);
-    painter.setPen(Qt::blue);
-    painter.drawText(5,15,QString::number(_streams));
+    painter.setPen(Qt::white);
+    painter.drawText(5,17,QString::number(_streams));
 	
 	painter.end();
 	
