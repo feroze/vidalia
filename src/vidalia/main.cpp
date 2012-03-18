@@ -209,7 +209,7 @@ main(int argc, char *argv[])
   /* Run Vidalia */
   int ret = vidalia.run();
 
-  delete mainWin;;
+  delete mainWin;
 
   /* Vidalia exited, so cleanup our pidfile and return */
   QFile::remove(pidfile);
