@@ -158,9 +158,19 @@ MainWindow::createGUI()
   _messageLog = new MessageLog(this->statusBar());
   _graph = new BandwidthGraph(this->statusBar());
 
-  addTab(&_statusTab);
+  //addTab(&_statusTab);
+  initializeTabs();
   ui.tabWidget->pinTab(0);
 }
+
+void
+MainWindow::initializeTabs()
+{
+	addTab(&_statusTab);
+	addTab(&_netViewer);
+	addTab(_messageLog);
+	addTab(_graph);
+    }	
 
 /** Creates the actions used in toolbars and menu */
 void

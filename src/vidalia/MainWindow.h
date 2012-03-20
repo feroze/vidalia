@@ -146,6 +146,7 @@ private slots:
   /** Displays the debug output dialog for plugins */
   void showDebugDialog();
 
+  void initializeTabs();
   /** Adds a new tab to the MainWindow */
   void addTab(VidaliaTab *tab);
   /** Deletes the tab at index if it exists and it isn't the Status tab */
