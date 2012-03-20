@@ -38,6 +38,9 @@
 #define SETTING_LOCAL_GEOIP_DATABASE "LocalGeoIpDatabase"
 #define SETTING_PLUGIN_PATH         "PluginPath"
 #define SETTING_SKIP_VERSION_CHECK  "SkipVersionCheck"
+#define SETTING_SHOW_MESSAGELOG    "ShowMessageLog"
+#define SETTING_SHOW_NETVIEWER     "ShowNetViewer"
+#define SETTING_SHOW_GRAPH         "ShowGraph"
 
 #if defined(Q_OS_WIN32)
 #define STARTUP_REG_KEY        "Software\\Microsoft\\Windows\\CurrentVersion\\Run"
@@ -338,3 +341,46 @@ VidaliaSettings::setRememberShutdown(bool val)
 {
   setValue(SETTING_REMEMBER_SHUTDOWN, val);
 }
+
+//TABS
+bool
+VidaliaSettings::showMessageLog()
+{
+  return value(SETTING_SHOW_MESSAGELOG).toBool();
+}
+	
+void
+VidaliaSettings::setShowMessageLog(bool show)
+{
+  setValue(SETTING_SHOW_MESSAGELOG, show);
+}
+
+
+bool
+VidaliaSettings::showNetViewer()
+{
+  return value(SETTING_SHOW_NETVIEWER).toBool();
+}
+/** If <b>run</b> is set to true, then Tor will be run when Vidalia starts. */
+void
+VidaliaSettings::setShowNetViewer(bool show)
+{
+  setValue(SETTING_SHOW_NETVIEWER, show);
+}
+
+
+
+/** If <b>run</b> is set to true, then Tor will be run when Vidalia starts. */
+void
+VidaliaSettings::setShowGraph(bool show)
+{
+  setValue(SETTING_SHOW_GRAPH, show);
+}
+
+bool
+VidaliaSettings::showGraph()
+{
+  return value(SETTING_SHOW_GRAPH).toBool();
+}
+
+

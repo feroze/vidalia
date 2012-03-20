@@ -136,6 +136,15 @@ public:
   bool rememberShutdown();
   /** Sets RememberShutdown to val */
   void setRememberShutdown(bool val);
+
+  bool showMessageLog();
+  void setShowMessageLog(bool show);
+
+  bool showNetViewer();
+  void setShowNetViewer(bool show);
+
+  bool showGraph();
+  void setShowGraph(bool show);
 };
 
 #endif
