@@ -38,6 +38,8 @@
 
 #include "PluginEngine.h"
 
+#include "VSettings.h"
+
 #include <QMainWindow>
 #include <QTimer>
 #include <QSystemTrayIcon>

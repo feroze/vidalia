@@ -166,10 +166,16 @@ MainWindow::createGUI()
 void
 MainWindow::initializeTabs()
 {
+	VidaliaSettings settings;
 	addTab(&_statusTab);
-	addTab(&_netViewer);
-	addTab(_messageLog);
-	addTab(_graph);
+	if (settings.showGraph())
+		addTab(_graph);
+	if (settings.showMessageLog())
+		addTab(_messageLog);
+	if (settings.showNetViewer())
+		addTab(&_netViewer);
+
+	showStatusTab();
     }	
 
 /** Creates the actions used in toolbars and menu */
@@ -1864,6 +1870,7 @@ MainWindow::handleAttachedClose()
 void
 MainWindow::addTab(VidaliaTab *tab)
 {
+  VidaliaSettings settings;
   /** If the tab's already open, display it and delete the
    * instanse passed */
   if(_tabMap.contains(tab->getTitle())) {
@@ -1909,11 +1916,20 @@ MainWindow::addTab(VidaliaTab *tab)
           this, SLOT(showHelpDialog(QString)));
   if(!isVisible() and (tab != &_statusTab))
     setVisible(true);
+
+  if (tab == _graph)
+  	  settings.setShowGraph(true);
+  if (tab == _messageLog)
+  	  settings.setShowMessageLog(true);
+  if (tab == &_netViewer)
+  	  settings.setShowNetViewer(true);
 }
 
 void
 MainWindow::delTab(int index)
 {
+  VidaliaSettings settings;
+
   if(index == -1)
     index = ui.tabWidget->currentIndex();
 
@@ -1929,6 +1945,11 @@ MainWindow::delTab(int index)
   ui.tabWidget->removeTab(index);
   QString key = _tabMap.at(index);
   _tabMap.removeAll(key);
+  //_settings = new VSettings("haha");
+  //_settings->setValue(key, QString("0")); 
+  //delete(_settings);
+  if (tab == &_netViewer)
+  	settings.setShowNetViewer(false);
 }
 
 void
