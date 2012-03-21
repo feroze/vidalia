@@ -145,6 +145,10 @@ public:
 
   bool showGraph();
   void setShowGraph(bool show);
+
+  //bool showTabs(QString &key);
+  //void setShowTabs(QString &key, bool show);
+  
 };
 
 #endif

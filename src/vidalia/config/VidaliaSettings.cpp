@@ -41,6 +41,7 @@
 #define SETTING_SHOW_MESSAGELOG    "ShowMessageLog"
 #define SETTING_SHOW_NETVIEWER     "ShowNetViewer"
 #define SETTING_SHOW_GRAPH         "ShowGraph"
+#define SETTING_SHOW_TABS          "ShowTabs"
 
 #if defined(Q_OS_WIN32)
 #define STARTUP_REG_KEY        "Software\\Microsoft\\Windows\\CurrentVersion\\Run"
@@ -382,5 +383,15 @@ VidaliaSettings::showGraph()
 {
   return value(SETTING_SHOW_GRAPH).toBool();
 }
+/*
+void
+VidaliaSettings::setShowTabs(QString &key, bool show)
+{
+	setValue(SETTING_SHOW_TABS, (key,show));
+}
 
-
+bool
+VidaliaSettings::showTabs(QString &key)
+{
+	return value(SETTING_SHOW_TABS;
+}*/
