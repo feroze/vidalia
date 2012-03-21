@@ -10,7 +10,7 @@
 ##  except according to the terms described in the LICENSE file.
 ##
 
-
+set(CMAKE_BUILD_TYPE Debug)
 include_directories(
   ${QT_INCLUDES}
   ${CMAKE_CURRENT_SOURCE_DIR}
