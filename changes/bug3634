@@ -1,0 +1,2 @@
+  o Display the relay Nickname and ORPort in the window title when vidalia is
+    running as a relay. Fixes bug 3634.
