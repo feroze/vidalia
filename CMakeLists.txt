@@ -10,6 +10,7 @@
 ##  except according to the terms described in the LICENSE file.
 ##
 
+set(CMAKE_BUILD_TYPE Debug)
 
 set(VER_MAJOR   "0")
 set(VER_MINOR   "3")
