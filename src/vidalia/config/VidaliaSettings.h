@@ -151,6 +151,11 @@ public:
   bool firstRun() const;
   /** Sets Vidalia's first run option */
   void setFirstRun(bool val);
+
+  /** Returns true if stream status indicator is enabled */
+  bool showStreams() const;
+  /** Sets stream status indicator option */
+  void setShowStreams(bool val);
 };
 
 #endif

@@ -220,6 +220,7 @@ AdvancedPage::save(QString &errmsg)
   VidaliaSettings vsettings;
   vsettings.setAllowPanic(ui.chkEnablePanic->isChecked());
   vsettings.setPanicPath(ui.linePanicPath->text());
+  vsettings.setShowStreams(ui.chkShowStreams->isChecked());
 
 #if 0
 #if defined(Q_WS_WIN)
@@ -269,6 +270,7 @@ AdvancedPage::load()
 
   ui.chkEnablePanic->setChecked(settings.allowPanic());
   ui.linePanicPath->setText(settings.panicPath());
+  ui.chkShowStreams->setChecked(settings.showStreams());
 }
 
 /** Called when the user selects a different authentication method from the

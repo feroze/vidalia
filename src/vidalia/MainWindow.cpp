@@ -45,6 +45,7 @@
 #include "FirstRunWizard.h"
 
 #include <QtGui>
+#include <QPainter>
 
 #ifdef Q_WS_MAC
 #include <Carbon/Carbon.h>
@@ -130,6 +131,8 @@ MainWindow::MainWindow()
   updateTorStatus(Stopped);
 
   VidaliaSettings settings;
+
+  _streams = 0;
 
 #if defined(Q_WS_MAC)
   /* Display OSX dock icon if icon preference is not set to "Tray Only" */
@@ -462,6 +465,8 @@ MainWindow::createConnections()
           this, SLOT(bootstrapStatusChanged(BootstrapStatus)));
   connect(_torControl, SIGNAL(dangerousPort(quint16, bool)),
           this, SLOT(warnDangerousPort(quint16, bool)));
+  connect(_torControl, SIGNAL(streamStatusChanged(Stream)),
+          this, SLOT(addStreamToTrayIcon(Stream)));
 
   connect(ui.tabWidget, SIGNAL(tabCloseRequested(int)),
           this, SLOT(handleCloseTab(int)));
@@ -1684,6 +1689,7 @@ MainWindow::updateTorStatus(TorStatus status)
     _trayIcon.setToolTip(statusText);
     _statusTab.setTorStatus(statusText);
   }
+  _trayIconFile = trayIconFile;
   return prevStatus;
 }
 
@@ -2285,4 +2291,42 @@ MainWindow::trayMessage(const QString &title, const QString &msg,
                         QSystemTrayIcon::MessageIcon icon, int milli)
 {
   _trayIcon.showMessage(title, msg, icon, milli);
+}
+
+void
+MainWindow::addStreamToTrayIcon(const Stream &stream)
+{
+  VidaliaSettings settings;
+  if (!settings.showStreams())
+  	  return;
+  Stream::Status status = stream.status();
+  switch (status) {
+    case Stream::New:
+      _streams++;
+      break;
+    case Stream::Closed:
+    case Stream::Failed:
+      if (_streams<=1) {
+        _streams = 0;
+        setTrayIcon(_trayIconFile);
+        return;
+      }
+      else
+        _streams--;
+  }
+    
+  QPixmap mask(_trayIconFile);
+  QPainter painter;
+  painter.begin(&mask);
+  QRect rect = mask.rect();
+
+  int bottom = rect.bottom();
+  rect.setTop(0.2 * bottom);
+  rect.setBottom(1.2 * bottom);
+
+  painter.drawText(rect,Qt::AlignCenter, QString::number(_streams));
+  painter.end();
+
+  _trayIcon.setIcon(mask);
+  _trayIcon.show();
 }
