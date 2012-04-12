@@ -61,6 +61,7 @@ public slots:
   void trayMessage(const QString &title, const QString &msg,
                    QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information,
                    int milli = 10000);
+  void addStreamToTrayIcon(const Stream &stream);
 
 protected:
   /** Called when the user changes the UI translation. */
@@ -278,6 +279,9 @@ private:
   bool _useSavedPassword;
   /** The Vidalia icon that sits in the tray. */
   QSystemTrayIcon _trayIcon;
+  /** Stores path to tray icon. */
+  QString _trayIconFile;
+  int _streams;
 
 #if defined(USE_AUTOUPDATE)
   /** Timer used to remind us to check for software updates. */
