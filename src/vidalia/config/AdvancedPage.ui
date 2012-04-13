@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>619</width>
-    <height>608</height>
+    <width>652</width>
+    <height>683</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -482,6 +482,25 @@
          </size>
         </property>
        </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="grpStreamStatus">
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="title">
+      <string>Stream Indicator</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="chkEnableStream">
+        <property name="text">
+         <string>Enable stream status indicator</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
