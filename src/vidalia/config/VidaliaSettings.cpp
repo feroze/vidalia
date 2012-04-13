@@ -41,7 +41,7 @@
 #define SETTING_ALLOW_PANIC         "AllowPanic"
 #define SETTING_PANIC_PATH          "PanicPath"
 #define SETTING_FIRST_RUN           "FirstRun"
-#define SETTING_STREAM_INDICATOR    "StreamIndicator"
+#define SETTING_SHOW_STREAMS        "ShowStreams"
 
 #if defined(Q_OS_WIN32)
 #define STARTUP_REG_KEY        "Software\\Microsoft\\Windows\\CurrentVersion\\Run"
@@ -91,7 +91,7 @@ VidaliaSettings::VidaliaSettings()
   setDefault(SETTING_ALLOW_PANIC, false);
   setDefault(SETTING_PANIC_PATH, "");
   setDefault(SETTING_FIRST_RUN, true);
-  setDefault(SETTING_STREAM_INDICATOR, false);
+  setDefault(SETTING_SHOW_STREAMS, false);
 }
 
 /** Gets the currently preferred language code for Vidalia. */
@@ -386,11 +386,11 @@ VidaliaSettings::setFirstRun(bool val)
 bool
 VidaliaSettings::showStreams() const
 {
-  return value(SETTING_STREAM_INDICATOR).toBool();
+  return value(SETTING_SHOW_STREAMS).toBool();
 }
 
 void
 VidaliaSettings::setShowStreams(bool val)
 {
-  setValue(SETTING_STREAM_INDICATOR, val);
+  setValue(SETTING_SHOW_STREAMS, val);
 }
