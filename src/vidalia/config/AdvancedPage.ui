@@ -496,7 +496,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
-       <widget class="QCheckBox" name="chkEnableStream">
+       <widget class="QCheckBox" name="chkShowStreams">
         <property name="text">
          <string>Enable stream status indicator</string>
         </property>
