@@ -2297,6 +2297,9 @@ MainWindow::trayMessage(const QString &title, const QString &msg,
 void
 MainWindow::addStreamToTrayIcon(const Stream &stream)
 {
+  VidaliaSettings settings;
+  if (!settings.showStreams())
+  	  return;
   Stream::Status status = stream.status();
   switch (status) {
     case Stream::New:
