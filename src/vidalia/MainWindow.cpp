@@ -44,6 +44,7 @@
 
 #include "FirstRunWizard.h"
 
+
 #include <QtGui>
 
 #ifdef Q_WS_MAC
@@ -120,6 +121,8 @@ MainWindow::MainWindow()
   _engine->loadAllPlugins();
 
   _dummy = new QAction(tr("No dettached tabs"), this);
+
+  _bwicon = new BandwidthIcon();
 
   createGUI();
   createConnections();
@@ -422,6 +425,15 @@ MainWindow::retranslateUi()
   ui.retranslateUi(this);
 }
 
+/** Adds new data to the graph. */
+void
+MainWindow::updateGraph(quint64 bytesRead, quint64 bytesWritten)
+{
+  /* Graph only cares about kilobytes */
+  _bwicon->addPoints(bytesRead/1024.0, bytesWritten/1024.0);
+}
+
+
 void
 MainWindow::createConnections()
 {
@@ -462,6 +474,10 @@ MainWindow::createConnections()
           this, SLOT(bootstrapStatusChanged(BootstrapStatus)));
   connect(_torControl, SIGNAL(dangerousPort(quint16, bool)),
           this, SLOT(warnDangerousPort(quint16, bool)));
+
+  _torControl->setEvent(TorEvents::Bandwidth);
+  connect(_torControl, SIGNAL(bandwidthUpdate(quint64,quint64)),
+          this, SLOT(updateGraph(quint64,quint64)));
 
   connect(ui.tabWidget, SIGNAL(tabCloseRequested(int)),
           this, SLOT(handleCloseTab(int)));

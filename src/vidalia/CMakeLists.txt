@@ -183,6 +183,7 @@ set(vidalia_SRCS ${vidalia_SRCS}
   StatusTab.cpp
   HelperProcess.cpp
   FirstRunWizard.cpp
+  BandwidthIcon.cpp
 )
 qt4_wrap_cpp(vidalia_SRCS
   Vidalia.h
@@ -196,6 +197,7 @@ qt4_wrap_cpp(vidalia_SRCS
   StatusTab.h
   HelperProcess.h
   FirstRunWizard.h
+  BandwidthIcon.h
 )
 
 if (USE_MINIUPNPC)

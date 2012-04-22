@@ -38,6 +38,8 @@
 
 #include "PluginEngine.h"
 
+#include "BandwidthIcon.h"
+
 #include <QMainWindow>
 #include <QTimer>
 #include <QSystemTrayIcon>
@@ -115,7 +117,7 @@ private slots:
    * all TorControl signals, and exit Vidalia. */
   void aboutToQuit();
 
-  /** Called when Tor has successfully established a circuit. */
+  /** Called when Tor hassuccessfully established a circuit. */
   void circuitEstablished();
   /** Called when Tor thinks the user has tried to connect to a port that
    * typically is used for unencrypted applications. Warns the user and allows
@@ -173,6 +175,9 @@ private slots:
 
   /** Called when server configuration is changed */
   void updateTitle();
+  
+
+  void updateGraph(quint64, quint64);
 
 #if defined(USE_AUTOUPDATE)
   /** Called when the user clicks the 'Check Now' button in the General
@@ -321,6 +326,9 @@ private:
   PluginEngine *_engine;
   QStringList _tabMap; /**< Map to handle opened tabs */
   QStringList _detachedTabMap; /**< Map to handle detached tabs */
+
+
+  BandwidthIcon *_bwicon;
 
   bool _startedWithPrevious; /**< True if Vidalia tried to start Tor with the previous ports */
   QString _previousControlPort; /**< Holds the previous controlport used */
